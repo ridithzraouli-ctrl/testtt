@@ -63,10 +63,6 @@ button {
   touch-action: manipulation;
 }
 
-#yes {
-  position: relative;
-}
-
 #no {
   position: relative;
 }
@@ -128,9 +124,7 @@ const yes = document.getElementById("yes");
 const no = document.getElementById("no");
 const buttons = document.getElementById("buttons");
 
-let growthPresses = 0;
-let extraPresses = 0;
-let size = 1;
+let presses = 0;
 let yesMode = false;
 
 function moveNo() {
@@ -164,17 +158,9 @@ no.addEventListener("click", () => {
     return;
   }
 
-  if (growthPresses < 3) {
-    growthPresses++;
-    size += 0.35;
-    yes.style.transform = `scale(${size})`;
-    moveNo();
-    return;
-  }
+  presses++;
 
-  extraPresses++;
-
-  if (extraPresses >= 3) {
+  if (presses >= 10) {
     yesMode = true;
 
     no.style.position = "static";
@@ -182,7 +168,6 @@ no.addEventListener("click", () => {
     no.style.top = "";
     no.style.transform = "";
 
-    yes.style.transform = "";
     buttons.style.flexDirection = "row";
 
     yes.textContent = "Yes";
